@@ -13,7 +13,7 @@ class LogConfig(ABCParse.ABCParse):
         dirname = ".log_cache",
         name: str = "cell_neighbors",
         file_level=logging.DEBUG,
-        console_level=logging.WARNING,
+        console_level=logging.INFO,
         *args,
         **kwargs
     ):
