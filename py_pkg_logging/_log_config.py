@@ -8,10 +8,10 @@ import pathlib
 class LogConfig(ABCParse.ABCParse):
     def __init__(
         self,
+        name: str = "pypkg_logger",
         log_file="log.log",
         log_dir = pathlib.os.getcwd(),
         dirname = ".log_cache",
-        name: str = "cell_neighbors",
         file_level=logging.DEBUG,
         console_level=logging.INFO,
         *args,
