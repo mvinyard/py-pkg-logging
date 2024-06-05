@@ -4,32 +4,52 @@ import ABCParse
 import logging
 import pathlib
 
+from typing import Union
+
 
 class LogConfig(ABCParse.ABCParse):
+    """"""
+
     def __init__(
         self,
-        name: str = "pypkg_logger",
-        log_file="log.log",
-        log_dir = pathlib.os.getcwd(),
-        dirname = ".log_cache",
-        file_level=logging.DEBUG,
-        console_level=logging.INFO,
+        name: Union[pathlib.Path, str] = "py_pkg_logger",
+        log_file: Union[pathlib.Path, str] = "log.log",
+        log_dir: Union[pathlib.Path, str] = pathlib.os.getcwd(),
+        dirname: Union[pathlib.Path, str] = ".log_cache",
+        file_level: int = logging.DEBUG,
+        console_level: int = logging.INFO,
         *args,
         **kwargs
     ):
-        """"""
+        """
+        Args:
+            name (Union[pathlib.Path, str]): Default: ``"py_pkg_logger"``.
+
+            log_file (Union[pathlib.Path, str]): Default: ``"log.log"``.
+
+            log_dir (Union[pathlib.Path, str]): Default: ``pathlib.os.getcwd()``.
+
+            dirname (Union[pathlib.Path, str]): Default: ``".log_cache"``.
+
+            file_level (int): Default: ``logging.DEBUG``.
+
+            console_level (int): Default: ``logging.DEBUG``.
+
+        Returns:
+            None
+        """
         self.__parse__(locals())
-        
+
         if not self.log_dir.exists():
             self.log_dir.mkdir()
 
         self.logger.addHandler(self.file_handler)
         self.logger.addHandler(self.console_handler)
-        
+
     @property
     def log_dir(self) -> pathlib.Path:
         return pathlib.Path(self._log_dir).joinpath(self._dirname)
-    
+
     @property
     def log_fpath(self) -> pathlib.Path:
         return self.log_dir.joinpath(self._log_file)
